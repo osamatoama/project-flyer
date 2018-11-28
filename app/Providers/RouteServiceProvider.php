@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use File;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -81,13 +82,14 @@ class RouteServiceProvider extends ServiceProvider
         $routes = app()->routes->getRoutes();
         $content = "let routes = { \r\n";
         foreach ($routes as $key => $route) {
-            $name = $route->action['as'] ?? $key;
+            if(!isset($route->action['as']))  continue;
+            $name = $route->action['as'];
             $path = url('') . '/' . $route->uri;
             $content .= "    '$name': '$path', \r\n";
         }
         $content = trim($content, ',');
         $content .= "\r\n }; \r\n export default routes";
 
-        file_put_contents(resource_path('js/routes.js'), $content);
+        File::put(resource_path('js/routes.js'), $content);
     }
 }

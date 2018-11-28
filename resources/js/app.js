@@ -28,3 +28,4 @@ const app = new Vue({
     	title: 'Hello from project flyer'
     }
 });
+
