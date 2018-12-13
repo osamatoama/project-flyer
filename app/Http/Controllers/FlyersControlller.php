@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\Finder\Finder;
-
+use App\Flyer;
 class FlyersControlller extends Controller
 {
 
@@ -38,7 +37,12 @@ class FlyersControlller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate
+        $this->validate('');
+        // add
+        $flyer = new Flyer;
+        // redirect
+        return back();
     }
 
     /**

@@ -12,7 +12,9 @@
 */
 
 Route::view('/', 'welcome', ['title' => 'project flyer']);
+
 Route::resource('flyers', 'FlyersControlller');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
