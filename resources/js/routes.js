@@ -2,7 +2,6 @@ let routes = {
     'flyers.index': 'http://projectflyer.test/flyers', 
     'flyers.create': 'http://projectflyer.test/flyers/create', 
     'flyers.store': 'http://projectflyer.test/flyers', 
-    'flyers.show': 'http://projectflyer.test/flyers/{flyer}', 
     'flyers.edit': 'http://projectflyer.test/flyers/{flyer}/edit', 
     'flyers.update': 'http://projectflyer.test/flyers/{flyer}', 
     'flyers.destroy': 'http://projectflyer.test/flyers/{flyer}', 

@@ -15,7 +15,7 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('flyer_photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('flyer_id')->unsigned();
+            $table->unsignedInteger('flyer_id');
             $table->foreign('flyer_id')->references('id')->on('flyers')->onDelete('cascade');
             $table->string('path');
             $table->timestamps();

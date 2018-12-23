@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Flyers\CreateRequest as CreateFlyerRequest;
 use App\Flyer;
+
 class FlyersControlller extends Controller
 {
+    public function __construct()
+    {
+        // allow guests to view all and individual flyer
+        $this->middleware('auth', ['except' => ['index', 'show']]);
 
-
+        $this->authorizeResource(Flyer::class, 'flyers', [
+            // create is already protected by auth middleware
+            'except' => ['index', 'show', 'store', 'create']
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +25,6 @@ class FlyersControlller extends Controller
      */
     public function index()
     {
-
-
     }
 
     /**
@@ -32,28 +40,27 @@ class FlyersControlller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateFlyerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFlyerRequest $request)
     {
-        // validate
-        $this->validate('');
-        // add
-        $flyer = new Flyer;
-        // redirect
-        return back();
+        $flyer = Flyer::create($request->validated());
+        flash()->success("Done!", "the flyer has been created");
+        return redirect()->route('flyers.show', [$flyer->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $zip
+     * @param  string  $street
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($zip, $street)
     {
-        //
+        return Flyer::LocatedAt($zip, $street)->first();
+        return view('flyers.show');
     }
 
     /**
