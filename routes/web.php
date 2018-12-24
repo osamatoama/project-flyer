@@ -7,7 +7,7 @@ Route::view('/', 'welcome', ['title' => 'project flyer']);
 Route::resource('flyers', 'FlyersControlller', ['except' => 'show']);
 
 
-Route::get('flyers/{zip}/{street}', 'FlyersControlller@show');
+Route::name('flyers.show')->get('flyers/{zip}/{street}', 'FlyersControlller@show');
 Route::post('flyers/{flyer}/photos', 'FlyersControlller@addPhoto')->name('flyers.add_photo');
 Auth::routes();
 

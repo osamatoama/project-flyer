@@ -1773,8 +1773,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
+  props: ["id"],
   data: function data() {
     return {
       photos: []
@@ -1792,11 +1797,13 @@ __webpack_require__.r(__webpack_exports__);
     getNewPhotosWhenAddOne: function getNewPhotosWhenAddOne() {
       var _this2 = this;
 
-      window.Echo.channel('flyers').listen('.add.flyer.photo', function (event) {
+      window.Echo.channel("flyers").listen(".add.flyer.photo", function (event) {
         _this2.photos.push(event.photo);
       });
     },
     deleteFlyerPhoto: function deleteFlyerPhoto(id) {
+      var el = this.$refs["photo-".concat(id)][0];
+      $(el).fadeOut(800);
       var url = "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(id, "/delete");
       window.axios.get(url).then(function (response) {
         console.log(response);
@@ -29648,25 +29655,34 @@ var render = function() {
     "div",
     { staticClass: "row mt-4" },
     _vm._l(_vm.photos, function(photo) {
-      return _c("div", { staticClass: "col-md-3 position-relative" }, [
-        _c(
-          "span",
-          {
-            staticClass: "delete-flyer-photo",
-            on: {
-              click: function($event) {
-                _vm.deleteFlyerPhoto(photo.id)
+      return _c(
+        "div",
+        {
+          key: photo.id,
+          ref: "photo-" + photo.id,
+          refInFor: true,
+          staticClass: "col-md-3 position-relative"
+        },
+        [
+          _c(
+            "span",
+            {
+              staticClass: "delete-flyer-photo",
+              on: {
+                click: function($event) {
+                  _vm.deleteFlyerPhoto(photo.id)
+                }
               }
-            }
-          },
-          [_vm._v("X")]
-        ),
-        _vm._v(" "),
-        _c("img", {
-          staticClass: "img-fluid flyer-photo",
-          attrs: { src: photo.path }
-        })
-      ])
+            },
+            [_vm._v("X")]
+          ),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "img-fluid flyer-photo w-100",
+            attrs: { src: photo.path }
+          })
+        ]
+      )
     }),
     0
   )

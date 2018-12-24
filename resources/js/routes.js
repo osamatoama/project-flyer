@@ -20,6 +20,7 @@ let routes = {
     'flyers.edit': 'http://projectflyer.test/flyers/{flyer}/edit', 
     'flyers.update': 'http://projectflyer.test/flyers/{flyer}', 
     'flyers.destroy': 'http://projectflyer.test/flyers/{flyer}', 
+    'flyers.show': 'http://projectflyer.test/flyers/{zip}/{street}', 
     'flyers.add_photo': 'http://projectflyer.test/flyers/{flyer}/photos', 
     'login': 'http://projectflyer.test/login', 
     'logout': 'http://projectflyer.test/logout', 

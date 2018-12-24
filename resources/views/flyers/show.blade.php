@@ -7,21 +7,23 @@
 @endpush
 @section('content')
 	<div class="container mt-4">
-		<h1 class="display-2">{{  $flyer->street }}</h1>
+		<h1 class="display-2">{{  $flyer->street }}
+		</h1>
 		<h5>${{ $flyer->price }}</h5>
 		<hr>
 		<h3 class="line-height-1-7">
 			{!!  nl2br( $flyer->description)!!}
 		</h3>
-		<photos :id="{{ $flyer->id }}"></photos>
-
-		<div class="row">
-			<div class="col-12 mt-5">
-				<form action="{{ route('flyers.add_photo', [$flyer]) }}"  class="dropzone">
-					@csrf
-				</form>
+		@can('addPhoto', $flyer)
+			<photos :id="{{ $flyer->id }}"></photos>
+			<div class="row">
+				<div class="col-12 mt-5">
+					<form action="{{ route('flyers.add_photo', [$flyer]) }}"  class="dropzone">
+						@csrf
+					</form>
+				</div>
 			</div>
-		</div>
+		@endcan
 	</div>
 @stop
 

@@ -25,4 +25,10 @@ class Flyer extends Model
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function url()
+    {
+        $street = str_replace(' ', '-', $this->street);
+        return route('flyers.show', [$this->zip, $street]);
+    }
 }

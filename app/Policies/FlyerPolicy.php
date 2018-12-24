@@ -40,20 +40,8 @@ class FlyerPolicy
      * @param  \App\Flyer  $flyer
      * @return mixed
      */
-    public function restore(User $user, Flyer $flyer)
+    public function addPhoto(User $user, Flyer $flyer)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the flyer.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Flyer  $flyer
-     * @return mixed
-     */
-    public function forceDelete(User $user, Flyer $flyer)
-    {
-        //
+        return (bool)$user;
     }
 }
