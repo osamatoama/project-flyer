@@ -9,13 +9,19 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
+         @guest
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             <a class="dropdown-item" href="{{ route('login') }}">Login </a>
             <a class="dropdown-item" href="{{ route('register') }}">Register </a>
           </div>
         </li>
+        @else
+          <li class="nav-item active">
+            <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
+          </li>
+        @endguest
       </ul>
     </div>
   </nav>

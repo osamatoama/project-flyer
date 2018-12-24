@@ -10494,6 +10494,18 @@ body {
   background: white;
 }
 
+.line-height-1-5 {
+  line-height: 1.5;
+}
+
+.line-height-1-7 {
+  line-height: 1.7;
+}
+
+.line-height-2 {
+  line-height: 2;
+}
+
 .flyers-form {
   display: flex;
   flex-wrap: wrap;
@@ -10506,5 +10518,21 @@ body {
 
 .flyers-form .button-submit {
   width: 100%;
+}
+
+.flyer-photo {
+  height: 300px;
+  border: 1px solid #767171;
+  margin-bottom: 15px;
+  padding: 2px;
+}
+
+.delete-flyer-photo {
+  color: red;
+  position: absolute;
+  right: 25px;
+  top: 0;
+  font-size: 22px;
+  cursor: pointer;
 }
 

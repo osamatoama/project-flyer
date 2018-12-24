@@ -17,4 +17,15 @@ class Photo extends Model
     {
         $this->belongsTo(App\Flyer::class);
     }
+
+    public function getPathAttribute($path)
+    {
+        return flyer_photo_path($path);
+    }
+    public function delete()
+    {
+        parent::delete();
+        $path = explode('/', $this->path);
+        \File::delete(storage_path('app/public/flyers/' . end($path)));
+    }
 }

@@ -42,3 +42,13 @@ function flash($title = null, $message = null)
     }
     return $flash->message($title, $message);
 }
+
+/**
+ * link to flyer photos path
+ * @param  string $path
+ * @return string
+ */
+function flyer_photo_path($path)
+{
+    return url("public/storage/flyers/{$path}");
+}

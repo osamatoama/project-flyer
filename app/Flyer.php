@@ -4,7 +4,6 @@ namespace App;
 
 use App\Photo;
 use App\Traits\Models\Flyer\Scopes;
-use App\Events\Flyers\FlyerWasCreated;
 use Illuminate\Database\Eloquent\Model;
 
 class Flyer extends Model
@@ -15,7 +14,7 @@ class Flyer extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => FlyerWasCreated::class
+        //
     ];
     /**
      * Photos relationship(1 to many)

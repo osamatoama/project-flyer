@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -17,15 +16,16 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-import ExampleComponent from './components/ExampleComponent.vue'
+import Photos from './components/photos.vue'
 
 import Routes from './routes.js'
 
-
+window.Laravel = {
+    baseBath: route().ziggy.baseUrl
+};
 const app = new Vue({
     el: '#app',
-    data: {
-    	title: 'Hello from project flyer'
+    components: {
+        Photos
     }
 });
-

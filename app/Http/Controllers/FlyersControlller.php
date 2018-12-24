@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Flyers\CreateRequest as CreateFlyerRequest;
 use App\Flyer;
+use App\Events\Flyers\PhotoWasAddedToFlyer;
 
 class FlyersControlller extends Controller
 {
@@ -51,7 +52,7 @@ class FlyersControlller extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified flyer.
      *
      * @param  string  $zip
      * @param  string  $street
@@ -59,8 +60,8 @@ class FlyersControlller extends Controller
      */
     public function show($zip, $street)
     {
-        return Flyer::LocatedAt($zip, $street)->first();
-        return view('flyers.show');
+        $flyer = Flyer::LocatedAt($zip, $street)->firstOrFail();
+        return view('flyers.show', compact('flyer'));
     }
 
     /**
@@ -95,5 +96,16 @@ class FlyersControlller extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function addPhoto(Flyer $flyer)
+    {
+        $file =  request()->file('file');
+        $path = md5($flyer->id) . str_random() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/flyers', $path);
+        $photo = $flyer->photos()->create(compact('path'));
+        event(new PhotoWasAddedToFlyer($photo));
+        return $path;
     }
 }

@@ -9,12 +9,15 @@
         <title>Project Flyer | @yield('title', 'home')</title>
         {{-- favicon  --}}
         <link rel="shortcut icon"   href="https://img.freepik.com/free-vector/grey-and-yellow-business-flyer-template_23-2147741058.jpg?size=338&ext=jpg">
+
         {{-- main css file  --}}
         <link rel="stylesheet" type="text/css" href="{{ css('app.css') }}">
-        {{-- placeholder to add more inline style or link to files --}}
+        {{-- placeholder to add more in-line style or link to files --}}
         @stack('styles')
     </head>
     <body>
+        {{-- use routes in the Vue Component --}}
+        @routes
         <div id="app">
             {{-- navbar  --}}
             @include('partials.nav')
@@ -27,6 +30,7 @@
         <script src="{{ js('app.js') }}"></script>
          {{-- placeholder to add more in-line scripts  or link to files --}}
         @stack('scripts')
+        {{-- display flash messages  --}}
         @include('partials.flash')
     </body>
 </html>

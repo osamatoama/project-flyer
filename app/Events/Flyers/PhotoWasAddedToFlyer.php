@@ -10,9 +10,9 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class FlyerWasCreated
+class PhotoWasAddedToFlyer implements ShouldBroadcast
 {
-    public $flyer;
+    public $photo;
 
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -21,10 +21,19 @@ class FlyerWasCreated
      *
      * @return void
      */
-    public function __construct($flyer)
+    public function __construct($photo)
     {
         //
-        $this->flyer = $flyer;
+        $this->photo = $photo;
+    }
+    /**
+     * the name of the event
+     *
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
+    public function broadcastAs()
+    {
+        return "add.flyer.photo";
     }
 
     /**
@@ -34,6 +43,6 @@ class FlyerWasCreated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('flyers');
     }
 }
