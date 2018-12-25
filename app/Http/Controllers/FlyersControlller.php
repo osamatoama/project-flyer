@@ -46,9 +46,10 @@ class FlyersControlller extends Controller
      */
     public function store(CreateFlyerRequest $request)
     {
-        $flyer = Flyer::create($request->validated());
+
+        $flyer = auth()->user()->flyers()->create($request->validated());
         flash()->success("Done!", "the flyer has been created");
-        return redirect()->route('flyers.show', [$flyer->id]);
+        return redirect($flyer->url());
     }
 
     /**
@@ -98,14 +99,18 @@ class FlyersControlller extends Controller
         //
     }
 
-
+    /**
+     * add photo to a flyer
+     * @param Flyer $flyer
+     * @fire PhotoWasAddedToFlyer
+     * @return string
+     */
     public function addPhoto(Flyer $flyer)
     {
         $file =  request()->file('file');
         $path = md5($flyer->id) . str_random() . '.' . $file->getClientOriginalExtension();
         $file->storeAs('public/flyers', $path);
         $photo = $flyer->photos()->create(compact('path'));
-        event(new PhotoWasAddedToFlyer($photo));
-        return $path;
+        PhotoWasAddedToFlyer::dispatch($photo);
     }
 }

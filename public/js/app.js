@@ -1778,8 +1778,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id"],
+  props: ["id", "canDelete"],
   data: function data() {
     return {
       photos: []
@@ -1797,7 +1801,7 @@ __webpack_require__.r(__webpack_exports__);
     getNewPhotosWhenAddOne: function getNewPhotosWhenAddOne() {
       var _this2 = this;
 
-      window.Echo.channel("flyers").listen(".add.flyer.photo", function (event) {
+      window.Echo.channel("flyers.".concat(this.id)).listen(".add.flyer.photo", function (event) {
         _this2.photos.push(event.photo);
       });
     },
@@ -29664,18 +29668,20 @@ var render = function() {
           staticClass: "col-md-3 position-relative"
         },
         [
-          _c(
-            "span",
-            {
-              staticClass: "delete-flyer-photo",
-              on: {
-                click: function($event) {
-                  _vm.deleteFlyerPhoto(photo.id)
-                }
-              }
-            },
-            [_vm._v("X")]
-          ),
+          _vm.canDelete == "can"
+            ? _c(
+                "span",
+                {
+                  staticClass: "delete-flyer-photo",
+                  on: {
+                    click: function($event) {
+                      _vm.deleteFlyerPhoto(photo.id)
+                    }
+                  }
+                },
+                [_vm._v("X")]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c("img", {
             staticClass: "img-fluid flyer-photo w-100",
@@ -41108,6 +41114,7 @@ var routes = {
   'flyers.edit': 'http://projectflyer.test/flyers/{flyer}/edit',
   'flyers.update': 'http://projectflyer.test/flyers/{flyer}',
   'flyers.destroy': 'http://projectflyer.test/flyers/{flyer}',
+  'flyers.show': 'http://projectflyer.test/flyers/{zip}/{street}',
   'flyers.add_photo': 'http://projectflyer.test/flyers/{flyer}/photos',
   'login': 'http://projectflyer.test/login',
   'logout': 'http://projectflyer.test/logout',

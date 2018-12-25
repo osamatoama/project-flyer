@@ -15,13 +15,16 @@ class CreateFlyersTable extends Migration
     {
         Schema::create('flyers', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->string('street');
             $table->string('state', 40);
             $table->string('city', 40);
             $table->string('country', 40);
-            $table->string('zip', 10 );
-            $table->integer('price' );
+            $table->string('zip', 10);
+            $table->integer('price');
             $table->text('description');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

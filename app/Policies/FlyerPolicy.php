@@ -30,11 +30,11 @@ class FlyerPolicy
      */
     public function delete(User $user, Flyer $flyer)
     {
-        //
+        return $user->owned($flyer);
     }
 
     /**
-     * Determine whether the user can restore the flyer.
+     * Determine whether the user can add photo  the flyer.
      *
      * @param  \App\User  $user
      * @param  \App\Flyer  $flyer
@@ -42,6 +42,6 @@ class FlyerPolicy
      */
     public function addPhoto(User $user, Flyer $flyer)
     {
-        return (bool)$user;
+        return $user->owned($flyer);
     }
 }

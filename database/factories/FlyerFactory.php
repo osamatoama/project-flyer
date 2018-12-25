@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Flyer::class, function (Faker $faker) {
     return [
-
+        'user_id' => 1,
         'street' => '123 example TV',
         'city'   => $faker->city,
         'zip'   => '54321',

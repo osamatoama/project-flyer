@@ -5,7 +5,6 @@ namespace App\Events\Flyers;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -23,7 +22,7 @@ class PhotoWasAddedToFlyer implements ShouldBroadcast
      */
     public function __construct($photo)
     {
-        //
+        $this->dontBroadcastToCurrentUser();
         $this->photo = $photo;
     }
     /**
@@ -43,6 +42,6 @@ class PhotoWasAddedToFlyer implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('flyers');
+        return new Channel('flyers.' . $this->photo->flyer_id);
     }
 }

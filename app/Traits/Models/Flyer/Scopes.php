@@ -6,7 +6,7 @@ trait Scopes
 {
 
     /**
-     * Local scope to fetch the flyer base on zip and street
+     * Local scope to fetch the flyer based on zip and street
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param  string $zip
      * @param  string $street

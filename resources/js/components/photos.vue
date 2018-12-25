@@ -6,7 +6,11 @@
       :ref="'photo-' + photo.id"
       :key="photo.id"
     >
-      <span class="delete-flyer-photo" @click="deleteFlyerPhoto(photo.id)">X</span>
+      <span
+        v-if="canDelete == 'can'"
+        class="delete-flyer-photo"
+        @click="deleteFlyerPhoto(photo.id)"
+      >X</span>
       <img class="img-fluid flyer-photo w-100" :src="photo.path">
     </div>
   </div>
@@ -15,7 +19,7 @@
 
 <script>
 export default {
-  props: ["id"],
+  props: ["id", "canDelete"],
   data() {
     return {
       photos: []
@@ -29,9 +33,12 @@ export default {
       });
     },
     getNewPhotosWhenAddOne() {
-      window.Echo.channel("flyers").listen(".add.flyer.photo", event => {
-        this.photos.push(event.photo);
-      });
+      window.Echo.channel(`flyers.${this.id}`).listen(
+        ".add.flyer.photo",
+        event => {
+          this.photos.push(event.photo);
+        }
+      );
     },
     deleteFlyerPhoto(id) {
       let el = this.$refs[`photo-${id}`][0];
