@@ -11,6 +11,6 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('flyers.{flyer}', function ($user, App\Flyer $flyer) {
+    return  $user->owned($flyer);
 });

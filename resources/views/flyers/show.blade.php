@@ -3,13 +3,15 @@
 @section('title', 'show flyer')
 @push('styles')
 	{{-- dropzone --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" />
+    <link rel="stylesheet" href="{{ css('dropzone.min.css') }}" />
 @endpush
 @section('content')
 	<div class="container mt-4">
 		<h1 class="display-2">{{  $flyer->street }}
 		</h1>
 		<h5>${{ $flyer->price }}</h5>
+		<h5>added By: {{ $flyer->user->name }}</h5>
+
 		<hr>
 		<h3 class="line-height-1-7">
 			{!!  nl2br( $flyer->description)!!}
@@ -31,5 +33,22 @@
 @push('scripts')
 	{{-- dropzone  --}}
     <script src="{{ js('dropzone.js') }}"></script>
+
+    <script>
+		Dropzone.autoDiscover = false;
+    	var s = new Dropzone(".dropzone", {
+    		error: function (e) {
+				swal({
+					title: "Error",
+					text: e.xhr.response,
+					icon: "error",
+					timer: 2500,
+					button: false
+				});
+
+    		}
+    	});
+
+    </script>
 @endpush
 

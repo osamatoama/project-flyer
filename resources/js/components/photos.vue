@@ -25,33 +25,38 @@ export default {
       photos: []
     };
   },
-  methods: {
-    getPhotos() {
-      let url = `${window.Laravel.baseBath}api/flyer/photos/${this.id}`;
-      window.axios.get(url).then(response => {
-        this.photos = response.data;
-      });
+  computed: {
+    channel() {
+      return window.Echo.private(`flyers.${this.id}`);
     },
-    getNewPhotosWhenAddOne() {
-      window.Echo.channel(`flyers.${this.id}`).listen(
-        ".add.flyer.photo",
-        event => {
-          this.photos.push(event.photo);
-        }
+    photosUrl() {
+      return `${window.Laravel.baseBath}api/flyer/photos/${this.id}`;
+    }
+  },
+  methods: {
+    deleteUrl(id) {
+      return `${window.Laravel.baseBath}api/flyer/photos/${id}/delete`;
+    },
+    getPhotos() {
+      window.axios
+        .get(this.photosUrl)
+        .then(response => (this.photos = response.data));
+    },
+    listenForAddingNewPhoto() {
+      this.channel.listen(".add.flyer.photo", ({ photo }) =>
+        this.photos.push(photo)
       );
     },
     deleteFlyerPhoto(id) {
       let el = this.$refs[`photo-${id}`][0];
       $(el).fadeOut(800);
-      let url = `${window.Laravel.baseBath}api/flyer/photos/${id}/delete`;
-      window.axios.get(url).then(response => {
-        console.log(response);
-      });
+
+      window.axios.delete(this.deleteUrl(id));
     }
   },
   created() {
     this.getPhotos();
-    this.getNewPhotosWhenAddOne();
+    this.listenForAddingNewPhoto();
   }
 };
 </script>

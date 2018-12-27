@@ -1,6 +1,6 @@
 <?php
 
-// Lesson: 9
+// Lesson: 11
 
 Route::view('/', 'welcome', ['title' => 'project flyer']);
 
@@ -32,7 +32,7 @@ Route::get('logt', function () {
     return redirect('/');
 });
 
-Route::get('logn', function () {
-    \Auth::login(App\User::where('email', 'o@o.com')->first());
+Route::get('logn/{id}', function ($id) {
+    \Auth::loginUsingId($id);
     return redirect('/');
 });

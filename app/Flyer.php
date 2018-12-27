@@ -38,6 +38,15 @@ class Flyer extends Model
         return $this->hasMany(Photo::class);
     }
     /**
+     * Flyer Users relationship(Many to 1)
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user()
+    {
+        return $this->BelongsTo(User::class);
+    }
+    /**
      * get the URL to single flyer
      * @return string
      */
@@ -55,5 +64,10 @@ class Flyer extends Model
     {
         $user = auth()->user();
         return  $user && $user->can('delete', $this) ? 'can' : 'cannot';
+    }
+
+    public function attachPhoto($path)
+    {
+        return $this->photos()->create(compact('path'));
     }
 }

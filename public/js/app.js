@@ -1789,34 +1789,42 @@ __webpack_require__.r(__webpack_exports__);
       photos: []
     };
   },
+  computed: {
+    channel: function channel() {
+      return window.Echo.private("flyers.".concat(this.id));
+    },
+    photosUrl: function photosUrl() {
+      return "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(this.id);
+    }
+  },
   methods: {
+    deleteUrl: function deleteUrl(id) {
+      return "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(id, "/delete");
+    },
     getPhotos: function getPhotos() {
       var _this = this;
 
-      var url = "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(this.id);
-      window.axios.get(url).then(function (response) {
-        _this.photos = response.data;
+      window.axios.get(this.photosUrl).then(function (response) {
+        return _this.photos = response.data;
       });
     },
-    getNewPhotosWhenAddOne: function getNewPhotosWhenAddOne() {
+    listenForAddingNewPhoto: function listenForAddingNewPhoto() {
       var _this2 = this;
 
-      window.Echo.channel("flyers.".concat(this.id)).listen(".add.flyer.photo", function (event) {
-        _this2.photos.push(event.photo);
+      this.channel.listen(".add.flyer.photo", function (_ref) {
+        var photo = _ref.photo;
+        return _this2.photos.push(photo);
       });
     },
     deleteFlyerPhoto: function deleteFlyerPhoto(id) {
       var el = this.$refs["photo-".concat(id)][0];
       $(el).fadeOut(800);
-      var url = "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(id, "/delete");
-      window.axios.get(url).then(function (response) {
-        console.log(response);
-      });
+      window.axios.delete(this.deleteUrl(id));
     }
   },
   created: function created() {
     this.getPhotos();
-    this.getNewPhotosWhenAddOne();
+    this.listenForAddingNewPhoto();
   }
 });
 

@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 /**
  * helpers file
  * @author Osama Toma <osamahassan333333@hotmail.com>
@@ -51,4 +53,14 @@ function flash($title = null, $message = null)
 function flyer_photo_path($path)
 {
     return url("public/storage/flyers/{$path}");
+}
+
+/**
+ * create random image path
+ * @param  UploadedFile $file
+ * @return string
+ */
+function random_image_path(UploadedFile $file)
+{
+    return  md5(rand(1, 999999)) . str_random() . '.' . $file->getClientOriginalExtension();
 }

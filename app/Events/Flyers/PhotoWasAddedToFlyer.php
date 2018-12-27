@@ -42,6 +42,7 @@ class PhotoWasAddedToFlyer implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('flyers.' . $this->photo->flyer_id);
+        return new PrivateChannel('flyers.' . $this->photo->flyer_id);
+        //return new Channel('flyers.' . $this->photo->flyer_id);
     }
 }
