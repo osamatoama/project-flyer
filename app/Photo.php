@@ -2,45 +2,23 @@
 
 namespace App;
 
+use App\Traits\Models\Photo\Getters;
+use App\Traits\Models\Photo\Helpers;
+use App\Traits\Models\Photo\Relations;
 use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
+    use Relations, Getters, Helpers;
+    /**
+     * table name
+     * @var string
+     */
     protected $table = 'flyer_photos';
-    protected $fillable = ['path'];
     /**
-     * flyer relationship
+     * The attributes that are mass assignable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var array
      */
-    public function flyer()
-    {
-        return $this->belongsTo(Flyer::class);
-    }
-
-    /**
-     * get the Photo's path
-     * @param  string $path
-     * @return string
-     */
-    public function getPathAttribute($path)
-    {
-        return flyer_photo_path($path);
-    }
-
-    /**
-     * overwrite the original delete method to delete the photo's file
-     * @return void
-     */
-    public function delete()
-    {
-        parent::delete();
-        $path = explode('/', $this->path);
-        $path  = end($path);
-
-        \File::delete(
-            // retrieve the image path belongs to the folders not the URL
-            flyer_photo_path($path, false)
-        );
-    }
+    protected $fillable = ['path'];
 }
