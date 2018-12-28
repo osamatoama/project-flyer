@@ -19,7 +19,7 @@ trait Relations
     /**
      * Flyer Users relationship(Many to 1)
      *
-     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

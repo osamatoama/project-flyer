@@ -4,31 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use App\Flyer;
 use App\Photo;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PhotoResource;
 use App\Events\Flyers\PhotoWasAddedToFlyer;
 
-class FlyersController extends Controller
+class FlyerPhotosController extends Controller
 {
     /**
      * get the photos associated with the Flyer
      * @param  Flyer  $flyer
      * @return Illuminate\Support\Collection
      */
-    public function getPhotos(Flyer $flyer)
+    public function index(Flyer $flyer)
     {
         return  PhotoResource::collection($flyer->photos);
     }
 
     /**
-     * delete a photo
-     * @param  Photo  $photo
-     * @return void
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function deletePhoto(Photo $photo)
+    public function create()
     {
-        $this->authorize('deletePhoto', $photo->flyer);
-        $photo->delete();
+        //
     }
 
     /**
@@ -37,7 +37,7 @@ class FlyersController extends Controller
      * @fire PhotoWasAddedToFlyer
      * @return void
      */
-    public function addPhoto(Flyer $flyer)
+    public function store(Flyer $flyer)
     {
         // validation
         $this->validate(request(), [
@@ -63,6 +63,52 @@ class FlyersController extends Controller
             $flyer->createAndAttachPhoto($path)
         );
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * delete a photo
+     * @param  Photo  $photo
+     * @return void
+     */
+    public function destroy(Photo $photo)
+    {
+        $this->authorize('deletePhoto', $photo->flyer);
+        $photo->delete();
+    }
+
 
 
     /**

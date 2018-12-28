@@ -2,7 +2,7 @@
 
 // Lesson: 15
 
-Route::view('/', 'welcome', ['title' => 'project flyer']);
+Route::get('/', 'FlyersController@index');
 
 Route::resource('flyers', 'FlyersController', ['except' => 'show']);
 
