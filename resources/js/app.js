@@ -20,9 +20,7 @@ import Photos from './components/photos.vue'
 
 import Routes from './routes.js'
 
-window.Laravel = {
-    baseBath: route().ziggy.baseUrl
-};
+
 const app = new Vue({
     el: '#app',
     components: {

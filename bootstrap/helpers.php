@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
- * return the path to javascript file
+ * return the path to a javascript file
  * @param  string $path
  * @return string
  */
@@ -20,7 +20,7 @@ function js($path)
 
 
 /**
- * return the path to css  file
+ * return the path to a css  file
  * @param  string $path
  * @return string
  */
@@ -48,11 +48,19 @@ function flash($title = null, $message = null)
 /**
  * link to flyer photos path
  * @param  string $path
+ * @param  boolean $isUrl
  * @return string
  */
-function flyer_photo_path($path)
+function flyer_photo_path($path, $isUrl = true)
 {
-    return url("public/storage/flyers/{$path}");
+    // use in views file to display the image
+    if ($isUrl) {
+        return url(
+            config('flyer.photos_path') . "/{$path}"
+        );
+    }
+    // use in controllers to delete or move the file
+    return public_path("flyers/photos/{$path}");
 }
 
 /**
@@ -62,5 +70,5 @@ function flyer_photo_path($path)
  */
 function random_image_path(UploadedFile $file)
 {
-    return  md5(rand(1, 999999)) . str_random() . '.' . $file->getClientOriginalExtension();
+    return  md5(rand(1, 999999)) . time() . str_random(2) . '.' . $file->getClientOriginalExtension();
 }

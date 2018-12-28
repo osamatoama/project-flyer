@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Photo;
 use App\Traits\Models\Flyer\Scopes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -65,9 +64,22 @@ class Flyer extends Model
         $user = auth()->user();
         return  $user && $user->can('delete', $this) ? 'can' : 'cannot';
     }
-
-    public function attachPhoto($path)
+    /**
+     * create new photo and attach it to the flyer
+     * @param  string $path
+     * @return $this
+     */
+    public function createAndAttachPhoto($path)
     {
         return $this->photos()->create(compact('path'));
+    }
+    /**
+     * sanitize the description against the malicious HTML tags(e.g: script)
+     * @param  string $description
+     * @return string
+     */
+    public function getDescriptionAttribute($description)
+    {
+        return \Purify::clean($description);
     }
 }

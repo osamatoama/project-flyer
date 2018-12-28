@@ -14,10 +14,15 @@
         <link rel="stylesheet" type="text/css" href="{{ css('app.css') }}">
         {{-- placeholder to add more in-line style or link to files --}}
         @stack('styles')
+        <script>
+            window.Laravel = {
+                    baseBath: "{{ url('/') }}"
+                };
+        </script>
     </head>
     <body>
         {{-- use routes in the Vue Component --}}
-        @routes
+
         <div id="app">
             {{-- navbar  --}}
             @include('partials.nav')
@@ -32,5 +37,10 @@
         @stack('scripts')
         {{-- display flash messages  --}}
         @include('partials.flash')
+
+
+        <footer>
+
+        </footer>
     </body>
 </html>

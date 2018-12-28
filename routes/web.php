@@ -1,14 +1,14 @@
 <?php
 
-// Lesson: 11
+// Lesson: 15
 
 Route::view('/', 'welcome', ['title' => 'project flyer']);
 
-Route::resource('flyers', 'FlyersControlller', ['except' => 'show']);
+Route::resource('flyers', 'FlyersController', ['except' => 'show']);
 
 
-Route::name('flyers.show')->get('flyers/{zip}/{street}', 'FlyersControlller@show');
-Route::post('flyers/{flyer}/photos', 'FlyersControlller@addPhoto')->name('flyers.add_photo');
+Route::get('flyers/{zip}/{street}', 'FlyersController@show')->name('flyers.show');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -26,16 +26,16 @@ export default {
     };
   },
   computed: {
-    channel() {
+    privateChannel() {
       return window.Echo.private(`flyers.${this.id}`);
     },
     photosUrl() {
-      return `${window.Laravel.baseBath}api/flyer/photos/${this.id}`;
+      return `${window.Laravel.baseBath}/api/flyer/photos/${this.id}`;
     }
   },
   methods: {
     deleteUrl(id) {
-      return `${window.Laravel.baseBath}api/flyer/photos/${id}/delete`;
+      return `${window.Laravel.baseBath}/api/flyer/photos/${id}/delete`;
     },
     getPhotos() {
       window.axios
@@ -43,7 +43,7 @@ export default {
         .then(response => (this.photos = response.data));
     },
     listenForAddingNewPhoto() {
-      this.channel.listen(".add.flyer.photo", ({ photo }) =>
+      this.privateChannel.listen(".add.flyer.photo", ({ photo }) =>
         this.photos.push(photo)
       );
     },

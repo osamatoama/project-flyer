@@ -17,17 +17,17 @@
       <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-          @foreach ($flyer->all() as $flyer)
-            <div class="col-md-4">
-              <h2>{{ $flyer->street }} - {{ $flyer->zip }}</h2>
-              <h4>{{ $flyer->city }}-{{ $flyer->country }}</h4>
-              <span>${{ $flyer->price }}</span>
-              <p>
-                {!! nl2br($flyer->description) !!}
-              </p>
-              <p><a class="btn btn-secondary" href="{{ $flyer->url() }}" role="button">View Flyer &raquo;</a></p>
-            </div>
-          @endforeach
+          {{-- it can be
+            @each('partials.flyers.single', $flyer->all, 'flyer', 'partials.flyer.empty')
+            with remove the references to class variable
+           --}}
+          @forelse($flyer->all() as $flyer)
+            @include('partials.flyers.single', ['flyer' => $flyer, 'class' => 'col-md-3'])
+
+          @empty
+            @include('partials.flyers.empty')
+          @endforelse
+
         </div>
 
         <hr>

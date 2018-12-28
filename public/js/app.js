@@ -1790,16 +1790,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    channel: function channel() {
+    privateChannel: function privateChannel() {
       return window.Echo.private("flyers.".concat(this.id));
     },
     photosUrl: function photosUrl() {
-      return "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(this.id);
+      return "".concat(window.Laravel.baseBath, "/api/flyer/photos/").concat(this.id);
     }
   },
   methods: {
     deleteUrl: function deleteUrl(id) {
-      return "".concat(window.Laravel.baseBath, "api/flyer/photos/").concat(id, "/delete");
+      return "".concat(window.Laravel.baseBath, "/api/flyer/photos/").concat(id, "/delete");
     },
     getPhotos: function getPhotos() {
       var _this = this;
@@ -1811,7 +1811,7 @@ __webpack_require__.r(__webpack_exports__);
     listenForAddingNewPhoto: function listenForAddingNewPhoto() {
       var _this2 = this;
 
-      this.channel.listen(".add.flyer.photo", function (_ref) {
+      this.privateChannel.listen(".add.flyer.photo", function (_ref) {
         var photo = _ref.photo;
         return _this2.photos.push(photo);
       });
@@ -40966,9 +40966,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-window.Laravel = {
-  baseBath: route().ziggy.baseUrl
-};
 var app = new Vue({
   el: '#app',
   components: {
@@ -41116,6 +41113,7 @@ var routes = {
   'passport.personal.tokens.index': 'http://projectflyer.test/oauth/personal-access-tokens',
   'passport.personal.tokens.store': 'http://projectflyer.test/oauth/personal-access-tokens',
   'passport.personal.tokens.destroy': 'http://projectflyer.test/oauth/personal-access-tokens/{token_id}',
+  'flyers.add_photo': 'http://projectflyer.test/api/flyers/{flyer}/photos',
   'flyers.index': 'http://projectflyer.test/flyers',
   'flyers.create': 'http://projectflyer.test/flyers/create',
   'flyers.store': 'http://projectflyer.test/flyers',
@@ -41123,7 +41121,6 @@ var routes = {
   'flyers.update': 'http://projectflyer.test/flyers/{flyer}',
   'flyers.destroy': 'http://projectflyer.test/flyers/{flyer}',
   'flyers.show': 'http://projectflyer.test/flyers/{zip}/{street}',
-  'flyers.add_photo': 'http://projectflyer.test/flyers/{flyer}/photos',
   'login': 'http://projectflyer.test/login',
   'logout': 'http://projectflyer.test/logout',
   'register': 'http://projectflyer.test/register',

@@ -21,6 +21,9 @@
 			<div class="row">
 				<div class="col-12 mt-5">
 					<form action="{{ route('flyers.add_photo', [$flyer]) }}"  class="dropzone">
+						<span class="d-block dz-message text-danger">
+								add some photo to your flyer(maximum: {{ config('flyer.max_images_for_each_flyer') }})
+						</span>
 						@csrf
 					</form>
 				</div>
@@ -29,26 +32,12 @@
 	</div>
 @stop
 
+@can('addPhoto', $flyer)
+	@push('scripts')
+		{{-- dropzone  --}}
+	    <script src="{{ js('dropzone.js') }}"></script>
 
-@push('scripts')
-	{{-- dropzone  --}}
-    <script src="{{ js('dropzone.js') }}"></script>
-
-    <script>
-		Dropzone.autoDiscover = false;
-    	var s = new Dropzone(".dropzone", {
-    		error: function (e) {
-				swal({
-					title: "Error",
-					text: e.xhr.response,
-					icon: "error",
-					timer: 2500,
-					button: false
-				});
-
-    		}
-    	});
-
-    </script>
-@endpush
+	    <script src="{{ js('dropzone-handling.js') }}"> </script>
+	@endpush
+@endcan
 

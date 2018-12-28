@@ -12,5 +12,5 @@
 */
 
 Broadcast::channel('flyers.{flyer}', function ($user, App\Flyer $flyer) {
-    return  $user->owned($flyer);
+    return  $user->owns($flyer);
 });

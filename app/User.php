@@ -37,7 +37,7 @@ class User extends Authenticatable
         return $this->hasMany(Flyer::class);
     }
 
-    public function owned(Flyer $flyer)
+    public function owns(Flyer $flyer)
     {
         return $this->id === $flyer->user_id;
     }
