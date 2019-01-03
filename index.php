@@ -9,6 +9,16 @@
 
 define('LARAVEL_START', microtime(true));
 
+
+/*
+|--------------------------------------------------------------------------
+| helpers functions file
+|--------------------------------------------------------------------------
+|
+| we put it here to override some core functions
+|
+*/
+require_once 'bootstrap/helpers.php';
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader

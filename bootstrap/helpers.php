@@ -72,3 +72,17 @@ function random_image_path(UploadedFile $file)
 {
     return  md5(rand(1, 999999)) . time() . str_random(2) . '.' . $file->getClientOriginalExtension();
 }
+
+
+
+/**
+ *  Get the path to a versioned Mix file (overwrite the original mix function to correct the path)
+ * @param  string $path
+ * @return string
+ */
+function mix($path)
+{
+    $content = File::get(public_path('mix-manifest.json'));
+    $content = json_decode($content, true);
+    return url('public'. $content[$path]);
+}

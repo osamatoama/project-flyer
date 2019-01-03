@@ -11,7 +11,7 @@
         <link rel="shortcut icon"   href="https://img.freepik.com/free-vector/grey-and-yellow-business-flyer-template_23-2147741058.jpg?size=338&ext=jpg">
 
         {{-- main css file  --}}
-        <link rel="stylesheet" type="text/css" href="{{ css('app.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ mix('/css/app.css') }}">
         {{-- placeholder to add more in-line style or link to files --}}
         @stack('styles')
         <script>
@@ -31,16 +31,17 @@
         </div>
         {{-- sweet alert (temporary) --}}
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        {{-- main js file --}}
-        <script src="{{ js('app.js') }}"></script>
+        {{--  js files --}}
+
+        <script src="{{ mix('/js/manifest.js') }}"></script>
+        <script src="{{ mix('/js/vendor.js') }}"></script>
+        <script src="{{ mix('/js/libs.js') }}"></script>
+        <script src="{{ mix('/js/app.js') }}"></script>
          {{-- placeholder to add more in-line scripts  or link to files --}}
         @stack('scripts')
         {{-- display flash messages  --}}
         @include('partials.flash')
-
-
         <footer>
-
         </footer>
     </body>
 </html>

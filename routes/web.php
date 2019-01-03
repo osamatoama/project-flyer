@@ -7,6 +7,7 @@ Route::get('/', 'FlyersController@index');
 Route::resource('flyers', 'FlyersController', ['except' => 'show']);
 
 
+
 Route::get('flyers/{zip}/{street}', 'FlyersController@show')->name('flyers.show');
 
 Auth::routes();

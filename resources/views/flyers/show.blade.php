@@ -35,9 +35,9 @@
 @can('addPhoto', $flyer)
 	@push('scripts')
 		{{-- dropzone  --}}
-	    <script src="{{ js('dropzone.js') }}"></script>
+	    <script src="{{ js('dropzone.min.js') }}"></script>
 
-	    <script src="{{ js('dropzone-handling.js') }}"> </script>
+	    <script src="{{ mix('/js/dropzone-handling.js') }}"> </script>
 	@endpush
 @endcan
 

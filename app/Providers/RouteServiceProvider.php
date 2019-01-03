@@ -78,11 +78,15 @@ class RouteServiceProvider extends ServiceProvider
      * create a js file with all the available routes to use in ajax requests
      * @return void
      */
-    private function ajaxRoutes() {
-        $routes = app()->routes->getRoutes();
+    private function ajaxRoutes()
+    {
+
+        $routes = collect(app()->routes->getRoutes());
         $content = "let routes = { \r\n";
         foreach ($routes as $key => $route) {
-            if(!isset($route->action['as']))  continue;
+            if (!isset($route->action['as'])) {
+                continue;
+            }
             $name = $route->action['as'];
             $path = url('') . '/' . $route->uri;
             $content .= "    '$name': '$path', \r\n";

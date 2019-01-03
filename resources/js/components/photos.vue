@@ -1,7 +1,7 @@
 <template>
   <div class="row mt-4">
     <div
-      class="col-md-3 position-relative"
+      class="col-lg-3 col-md-6 position-relative"
       v-for="photo in photos"
       :ref="'photo-' + photo.id"
       :key="photo.id"
@@ -19,6 +19,10 @@
 
 <script>
 export default {
+  /**
+   * proprieties that's need to assign to this component
+   * @type array
+   */
   props: ["id", "canDelete"],
   data() {
     return {
@@ -26,27 +30,54 @@ export default {
     };
   },
   computed: {
+    /**
+     * private channel name
+     * @return object
+     */
     privateChannel() {
       return window.Echo.private(`flyers.${this.id}`);
     },
+    /**
+     * retrieve the get photos Url
+     * @return string
+     */
     photosUrl() {
-      return `${window.Laravel.baseBath}/api/flyer/photos/${this.id}`;
+      return  Helpers.proccesRoute('flyers.get_photos', {'flyer': this.id});
     }
   },
   methods: {
+    /**
+     * retrieve the delete photo url
+     * @param  int id
+     * @return string
+     */
     deleteUrl(id) {
-      return `${window.Laravel.baseBath}/api/flyer/photos/${id}/delete`;
+
+      return Helpers.proccesRoute('flyers.delete_photo',{'photo': id});
     },
+    /**
+     * get all photos associated with the given flyer
+     * @return void
+     */
     getPhotos() {
       window.axios
         .get(this.photosUrl)
         .then(response => (this.photos = response.data));
     },
+    /**
+     * listen when add new photo and update photos collection
+     * @return void
+     */
     listenForAddingNewPhoto() {
       this.privateChannel.listen(".add.flyer.photo", ({ photo }) =>
         this.photos.push(photo)
       );
     },
+    /**
+     * post request to delete photo
+     * @param  int id
+     * @return void
+     */
     deleteFlyerPhoto(id) {
       let el = this.$refs[`photo-${id}`][0];
       $(el).fadeOut(800);
@@ -54,7 +85,12 @@ export default {
       window.axios.delete(this.deleteUrl(id));
     }
   },
+  /**
+   * created event hook
+   * @return void
+   */
   created() {
+
     this.getPhotos();
     this.listenForAddingNewPhoto();
   }

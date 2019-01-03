@@ -14,6 +14,16 @@ try {
 
 window.axios = require('axios');
 
+import Routes from './routes.js';
+
+import Helpers from './helpers.js';
+
+window.routes = Routes;
+
+window.Helpers = Helpers;
+
+
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 

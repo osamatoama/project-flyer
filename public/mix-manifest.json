@@ -1,5 +1,8 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/js/dropzone-handling.js": "/js/dropzone-handling.js"
+    "/js/app.js": "/js/app.js?id=345566b4ba179f0716e3",
+    "/css/app.css": "/css/app.css?id=20883b593e44d4969ff8",
+    "/js/dropzone-handling.js": "/js/dropzone-handling.js?id=d09933a4ed2b7bd919bd",
+    "/js/manifest.js": "/js/manifest.js?id=844cdbfe9e6b6b56ae8f",
+    "/js/vendor.js": "/js/vendor.js?id=9ea835d0c605744e5970",
+    "/js/libs.js": "/js/libs.js?id=f3b8ce97ff6ce324da62"
 }
