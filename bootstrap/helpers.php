@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @param  string $path
  * @return string
  */
-function js($path)
+function js(String $path)
 {
     return asset("public/js/{$path}");
 }
@@ -24,7 +24,7 @@ function js($path)
  * @param  string $path
  * @return string
  */
-function css($path)
+function css(String $path)
 {
     return asset("public/css/{$path}");
 }
@@ -51,7 +51,7 @@ function flash($title = null, $message = null)
  * @param  boolean $isUrl
  * @return string
  */
-function flyer_photo_path($path, $isUrl = true)
+function flyer_photo_path(String $path, Bool $isUrl = true)
 {
     // use in views file to display the image
     if ($isUrl) {
@@ -70,19 +70,32 @@ function flyer_photo_path($path, $isUrl = true)
  */
 function random_image_path(UploadedFile $file)
 {
-    return  md5(rand(1, 999999)) . time() . str_random(2) . '.' . $file->getClientOriginalExtension();
+    return md5(rand(1, 999999)) . time() . str_random(2) . '.' . $file->getClientOriginalExtension();
 }
 
 
 
 /**
- *  Get the path to a versioned Mix file (overwrite the original mix function to correct the path)
+ *  Get the path to a versioned Mix file
  * @param  string $path
  * @return string
  */
-function mix($path)
+function newMix(String $path)
 {
     $content = File::get(public_path('mix-manifest.json'));
     $content = json_decode($content, true);
-    return url('public'. $content[$path]);
+    return url('public' . $content[$path]);
+}
+
+/**
+ * wrapper  around model factory
+ *
+ * @param $string|class $class
+ * @param array $attributes
+ * @param integer|null $times
+ * @return object
+ */
+function create($class, $attributes = [], $times = null)
+{
+    return factory($class, $times)->create($attributes);
 }

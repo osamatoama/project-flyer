@@ -6,6 +6,7 @@ use App\Traits\Models\Photo\Getters;
 use App\Traits\Models\Photo\Helpers;
 use App\Traits\Models\Photo\Relations;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\Flyers\PhotoWasAddedToFlyer;
 
 class Photo extends Model
 {
@@ -21,4 +22,13 @@ class Photo extends Model
      * @var array
      */
     protected $fillable = ['path'];
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => PhotoWasAddedToFlyer::class
+    ];
+
 }

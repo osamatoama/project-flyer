@@ -13,7 +13,7 @@ trait Helpers
     {
 
         $path = explode('/', $this->path);
-        $path  = end($path);
+        $path = end($path);
 
         File::delete(
             // retrieve the image path belongs to the folders not the URL
@@ -21,5 +21,14 @@ trait Helpers
         );
         // call the original method of the Eloquentf
         parent::delete();
+    }
+    /**
+     * url to delete the photo
+     *
+     * @return string
+     */
+    public function deletePath()
+    {
+        return route('flyers.delete_photo', [$this]);
     }
 }

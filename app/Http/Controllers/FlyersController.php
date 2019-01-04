@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Flyer;
 use Illuminate\Http\Request;
 use App\Http\Requests\Flyers\CreateRequest as CreateFlyerRequest;
+use App\Http\Helpers\Flash;
 
 class FlyersController extends Controller
 {
@@ -48,7 +49,9 @@ class FlyersController extends Controller
     public function store(CreateFlyerRequest $request)
     {
         $flyer = auth()->user()->flyers()->create($request->all());
+
         flash()->success("Done!", "the flyer has been created");
+
         return redirect($flyer->url());
     }
 

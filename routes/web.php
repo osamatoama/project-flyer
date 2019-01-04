@@ -2,6 +2,7 @@
 
 // Lesson: 15
 
+
 Route::get('/', 'FlyersController@index');
 
 Route::resource('flyers', 'FlyersController', ['except' => 'show']);
@@ -33,7 +34,7 @@ Route::get('logt', function () {
     return redirect('/');
 });
 
-Route::get('logn/{id}', function ($id) {
-    \Auth::loginUsingId($id);
+Route::get('logn', function () {
+    \Auth::login(App\User::first());
     return redirect('/');
 });

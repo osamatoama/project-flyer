@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        factory(App\User::class)->create();
+        //factory(App\User::class)->create();
         factory(App\Flyer::class)->create();
         //factory(App\Photo::class)->create();
     }

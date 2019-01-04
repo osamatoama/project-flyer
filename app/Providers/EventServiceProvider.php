@@ -18,9 +18,6 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        \App\Events\Flyers\PhotoWasAddedToFlyer::class => [
-            // \App\Listeners\Flyers\DoAnyThing::class
-        ]
     ];
 
     /**

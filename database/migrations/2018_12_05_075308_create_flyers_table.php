@@ -19,7 +19,7 @@ class CreateFlyersTable extends Migration
             $table->string('street');
             $table->string('state', 40);
             $table->string('city', 40);
-            $table->string('country', 40);
+            $table->string('country');
             $table->string('zip', 10);
             $table->integer('price');
             $table->text('description');
