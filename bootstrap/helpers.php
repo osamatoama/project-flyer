@@ -1,5 +1,6 @@
 <?php
 
+
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -88,7 +89,7 @@ function newMix(String $path)
 }
 
 /**
- * wrapper  around model factory
+ * wrapper  around create model factory
  *
  * @param $string|class $class
  * @param array $attributes
@@ -98,4 +99,17 @@ function newMix(String $path)
 function create($class, $attributes = [], $times = null)
 {
     return factory($class, $times)->create($attributes);
+}
+
+/**
+ * wrapper  around make model factory
+ *
+ * @param $string|class $class
+ * @param array $attributes
+ * @param integer|null $times
+ * @return object
+ */
+function make($class, $attributes = [], $times = null)
+{
+    return factory($class, $times)->make($attributes);
 }

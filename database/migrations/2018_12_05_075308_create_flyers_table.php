@@ -23,7 +23,6 @@ class CreateFlyersTable extends Migration
             $table->string('zip', 10);
             $table->integer('price');
             $table->text('description');
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

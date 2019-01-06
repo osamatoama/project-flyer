@@ -14,12 +14,12 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'street'  => 'required',
-            'city'    => 'required',
+            'street' => 'required',
+            'city' => 'required',
             'country' => 'required',
-            'zip'     => 'required|max:8',
-            'state'   => 'required',
-            'price'   => 'required|integer',
+            'zip' => 'required|max:8',
+            'state' => 'required',
+            'price' => 'required|integer',
             'description' => 'required|min:10'
         ];
     }

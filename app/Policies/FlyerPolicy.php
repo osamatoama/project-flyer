@@ -9,6 +9,20 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class FlyerPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can update the flyer.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Flyer  $flyer
+     * @return mixed
+     */
+    public function create(User $user)
+    {
+
+        return true;
+    }
+
     /**
      * Determine whether the user can update the flyer.
      *
@@ -18,7 +32,7 @@ class FlyerPolicy
      */
     public function update(User $user, Flyer $flyer)
     {
-        //
+        return true;
     }
 
     /**
@@ -32,6 +46,7 @@ class FlyerPolicy
     {
         return $user->owns($flyer);
     }
+
 
     /**
      * Determine whether the user can add a photo  the flyer.

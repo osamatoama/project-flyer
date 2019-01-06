@@ -1,4 +1,9 @@
 let routes = { 
+    'debugbar.openhandler': 'http://projectflyer.test/_debugbar/open', 
+    'debugbar.clockwork': 'http://projectflyer.test/_debugbar/clockwork/{id}', 
+    'debugbar.assets.css': 'http://projectflyer.test/_debugbar/assets/stylesheets', 
+    'debugbar.assets.js': 'http://projectflyer.test/_debugbar/assets/javascript', 
+    'debugbar.cache.delete': 'http://projectflyer.test/_debugbar/cache/{key}/{tags?}', 
     'passport.authorizations.authorize': 'http://projectflyer.test/oauth/authorize', 
     'passport.authorizations.approve': 'http://projectflyer.test/oauth/authorize', 
     'passport.authorizations.deny': 'http://projectflyer.test/oauth/authorize', 
@@ -31,7 +36,6 @@ let routes = {
     'password.email': 'http://projectflyer.test/password/email', 
     'password.reset': 'http://projectflyer.test/password/reset/{token}', 
     'password.update': 'http://projectflyer.test/password/reset', 
-    'home': 'http://projectflyer.test/home', 
 
  }; 
  export default routes

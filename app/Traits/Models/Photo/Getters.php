@@ -12,4 +12,10 @@ trait Getters
     {
         return flyer_photo_path($path);
     }
+
+    public function getPhotoName()
+    {
+        $path = explode('/', $this->path);
+        return end($path);
+    }
 }

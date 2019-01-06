@@ -20,7 +20,6 @@ class Flyer extends Model
     protected $fillable = [
         'state', 'street', 'zip', 'city', 'country', 'price', 'description'
     ];
-
     /**
      * The event map for the model.
      *

@@ -38,12 +38,12 @@ class FlyerTest extends TestCase
 
 
     /** @test */
-    public function redirect_guest_when_visit_create_flyer_page()
+    public function redirect_guest_when_visit_a_create_flyer_page()
     {
         $this->get('/flyers/create')->assertRedirect('/login');
     }
     /** @test */
-    public function only_auth_user_can_create_flyer()
+    public function only_auth_user_can_visit_a_create_flyer_page()
     {
         $this->signIn();
         $this->get('/flyers/create')->assertStatus(200);
@@ -83,6 +83,17 @@ class FlyerTest extends TestCase
         ]);
         $this->assertEquals($flyer->user_id, auth()->id());
         $this->assertNotEquals($flyer->user_id, $secondUser->id);
+    }
+
+    /** @test */
+    public function a_user_can_delete_his_flyer()
+    {
+        $flyer = create(Flyer::class);
+        $this->signIn($flyer->user);
+        $this->delete(route('flyers.destroy', [$flyer]))->assertStatus(302)->assertRedirect('/');
+        $this->get($flyer->url())->assertStatus(404);
+        $this->get(route('flyers.get_photos', [$flyer]))->assertStatus(404);
+        $this->assertDatabaseMissing('flyers', $flyer->all()->toArray());
     }
 
 

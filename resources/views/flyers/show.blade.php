@@ -11,7 +11,15 @@
 		</h1>
 		<h5>${{ $flyer->price }}</h5>
 		<h5>added By: {{ $flyer->user->name }}</h5>
-
+		@can('delete', $flyer)
+			<form method="POST" action="{{ route('flyers.destroy', [$flyer])}}">
+				@csrf
+				@method('DELETE')
+				<button type="submit" class="btn btn-danger">
+					delete
+				</button>
+			</form>
+		@endcan
 		<hr>
 		<h3 class="line-height-1-7">
 			{!!  nl2br( $flyer->description)!!}

@@ -11,12 +11,12 @@ class FlyersController extends Controller
 {
     public function __construct()
     {
-        // allow guests to view all and individual flyer
+        // allow guests to view all and individual flyers
         $this->middleware('auth', ['except' => ['index', 'show']]);
 
-        $this->authorizeResource(Flyer::class, 'flyers', [
+        $this->authorizeResource(Flyer::class, '', [
             // create is already protected by auth middleware
-            'except' => ['index', 'show', 'store', 'create']
+            'except' => ['index', 'show', 'create']
         ]);
     }
     /**
@@ -88,7 +88,6 @@ class FlyersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -97,8 +96,9 @@ class FlyersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Flyer $flyer)
     {
-        //
+        $flyer->delete();
+        return redirect('/');
     }
 }

@@ -47,7 +47,10 @@ class FlyerPhotosController extends Controller
             config('flyer.photos_path'),
             $path = random_image_path($file)
         );
-        $flyer->createAndAttachPhoto($path);
+        return response()->json(
+            $flyer->createAndAttachPhoto($path),
+            201
+        );
     }
 
     /**

@@ -21,7 +21,7 @@ trait Helpers
     public function ownedByAuthUser()
     {
         $user = auth()->user();
-        return  $user && $user->can('delete', $this) ? 'can' : 'cannot';
+        return $user && $user->can('delete', $this) ? 'can' : 'cannot';
     }
     /**
      * create new photo and attach it to the flyer
@@ -31,5 +31,17 @@ trait Helpers
     public function createAndAttachPhoto($path)
     {
         return $this->photos()->create(compact('path'));
+    }
+
+    /**
+     * overwrite the original delete method to delete the related photos
+     * @return void
+     */
+    public function delete()
+    {
+        foreach ($this->photos as $photo) {
+            $photo->delete();
+        }
+        parent::delete();
     }
 }

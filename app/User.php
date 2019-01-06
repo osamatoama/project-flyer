@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function owns(Flyer $flyer)
     {
-        return $this->id === $flyer->user_id;
+        return $this->id == $flyer->user_id;
     }
 }
