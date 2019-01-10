@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\User;
 use App\Flyer;
 use Tests\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FlyerTest extends TestCase
@@ -33,7 +34,7 @@ class FlyerTest extends TestCase
     /** @test */
     public function the_home_page_is_loaded_correctly()
     {
-        $this->get('/')->assertStatus(200);
+        $this->get('/')->assertOk()->assertSee('Project Flyer');
     }
 
 
@@ -46,7 +47,7 @@ class FlyerTest extends TestCase
     public function only_auth_user_can_visit_a_create_flyer_page()
     {
         $this->signIn();
-        $this->get('/flyers/create')->assertStatus(200);
+        $this->get('/flyers/create')->assertOk();
     }
 
     /** @test */
@@ -66,7 +67,10 @@ class FlyerTest extends TestCase
         // first we should go to the create flyer page to redirect as back 
         // or we will redirect to the root path
         $this->get('/flyers/create');
-        $this->post('/flyers', $this->getStub(['street' => '']))->assertRedirect('/flyers/create');
+        $this->post('/flyers', $this->getStub(['street' => '']))
+            ->assertRedirect('/flyers/create')
+            ->assertSessionHasErrors('street');
+
         $this->assertDatabaseMissing('flyers', $this->getStub());
     }
 
@@ -75,10 +79,10 @@ class FlyerTest extends TestCase
     /** @test */
     public function auth_user_create_flyer_and_assign_the_id_to_him()
     {
-        $firstUser = factory(User::class)->create();
-        $secondUser = factory(User::class)->create();
+        $firstUser = create(User::class);
+        $secondUser = create(User::class);
         $this->signIn($firstUser);
-        $flyer = factory(Flyer::class)->create([
+        $flyer = create(Flyer::class, [
             'user_id' => $firstUser->id
         ]);
         $this->assertEquals($flyer->user_id, auth()->id());
@@ -90,13 +94,9 @@ class FlyerTest extends TestCase
     {
         $flyer = create(Flyer::class);
         $this->signIn($flyer->user);
-        $this->delete(route('flyers.destroy', [$flyer]))->assertStatus(302)->assertRedirect('/');
-        $this->get($flyer->url())->assertStatus(404);
-        $this->get(route('flyers.get_photos', [$flyer]))->assertStatus(404);
+        $this->delete(route('flyers.destroy', [$flyer]))->assertStatus(Response::HTTP_FOUND)->assertRedirect('/');
+        $this->get($flyer->url())->assertNotFound();
+        $this->get(route('flyers.get_photos', [$flyer]))->assertNotFound();
         $this->assertDatabaseMissing('flyers', $flyer->all()->toArray());
     }
-
-
-
-
 }

@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\Resource;
-
+use Laravel\Dusk\DuskServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /* if ($this->app->environment('local', 'testing')) {
+            $this->app->register(DuskServiceProvider::class);
+        } */
     }
 }

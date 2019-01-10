@@ -10,6 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Event;
 use App\Events\Flyers\PhotoWasAddedToFlyer;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PhotoTest extends TestCase
@@ -36,10 +37,13 @@ class PhotoTest extends TestCase
         $flyer = create(Flyer::class);
         $photo = $flyer->photos()->create($this->getStub());
 
-        $response = $this->json('GET', route('flyers.get_photos', [$flyer]))->assertStatus(200);
-        $photo = $response->decodeResponseJson()[0]; // get  first result as array
+        $this->json('GET', route('flyers.get_photos', [$flyer]))->assertOk()->assertExactJson([
+            [
+                'id' => $photo->id,
+                'path' => $photo->path
+            ]
+        ]);
 
-        $this->assertArrayHasKey('path', $photo);
 
     }
 
@@ -61,7 +65,7 @@ class PhotoTest extends TestCase
         $flyer = create('App\Flyer');
         $photo = create(Photo::class, $this->getStub(['flyer_id' => $flyer->id]));
         $this->signInWithPassport($flyer->user);
-        $this->delete($photo->deletePath())->assertStatus(200);
+        $this->delete($photo->deletePath())->assertOk();
         $this->assertCount(0, $flyer->photos);
     }
     /** @test */
@@ -70,9 +74,14 @@ class PhotoTest extends TestCase
         $flyer = create('App\Flyer');
         $this->signInWithPassport($flyer->user);
         $maxImagesForEachFlyer = config('flyer.max_images_for_each_flyer');
+
+
         $response = $this->post(route('flyers.add_photo', [$flyer]), [
             'photo' => $this->getFakeUploadedFIle()
         ])->assertStatus(201);
+
+
+
         $photo = collect($response->decodeResponseJson());
         $path = $photo->get('path');
         $name = $this->getPhotoName($path);
@@ -107,11 +116,11 @@ class PhotoTest extends TestCase
             }
 
             if ($time === $maxImagesForEachFlyer) {
-                $response->assertStatus(406);
+                $response->assertStatus(Response::HTTP_NOT_ACCEPTABLE);
                 break;
             }
 
-            $response->assertStatus(201);
+            $response->assertStatus(Response::HTTP_CREATED);
         }
 
     }
