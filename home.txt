@@ -1,0 +1,7 @@
+
+
+git config git-ftp.url "ftp.osamatoma.net"
+
+
+git config git-ftp.user "project-flyer"
+git config git-ftp.password "project-flyer123?"
