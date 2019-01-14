@@ -354,6 +354,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var routes = {
+  'debugbar.openhandler': 'http://projectflyer.test/_debugbar/open',
+  'debugbar.clockwork': 'http://projectflyer.test/_debugbar/clockwork/{id}',
+  'debugbar.assets.css': 'http://projectflyer.test/_debugbar/assets/stylesheets',
+  'debugbar.assets.js': 'http://projectflyer.test/_debugbar/assets/javascript',
+  'debugbar.cache.delete': 'http://projectflyer.test/_debugbar/cache/{key}/{tags?}',
   'passport.authorizations.authorize': 'http://projectflyer.test/oauth/authorize',
   'passport.authorizations.approve': 'http://projectflyer.test/oauth/authorize',
   'passport.authorizations.deny': 'http://projectflyer.test/oauth/authorize',
@@ -385,8 +390,7 @@ var routes = {
   'password.request': 'http://projectflyer.test/password/reset',
   'password.email': 'http://projectflyer.test/password/email',
   'password.reset': 'http://projectflyer.test/password/reset/{token}',
-  'password.update': 'http://projectflyer.test/password/reset',
-  'home': 'http://projectflyer.test/home'
+  'password.update': 'http://projectflyer.test/password/reset'
 };
 /* harmony default export */ __webpack_exports__["default"] = (routes);
 
